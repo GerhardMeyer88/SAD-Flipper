@@ -11,23 +11,29 @@ public class EndFlipperState implements FlipperState {
     @Override
     public void insertCoin() {
         flipper.incrementCoinCount();
-        System.out.println("Coin eingeworfen. Coin-Zähler: " + flipper.getCoinCount());
+        System.out.println("Coin eingeworfen.\n" +
+                "Coin-Zähler: " + flipper.getCoinCount());
     }
 
     @Override
     public void start() {
-        System.out.println("Starte ein weiteres Spiel!");
-        flipper.setState(flipper.getPlayingFlipperState());
+        System.out.println("Zeigt später deinen aktuellen Score!");
+        System.out.println("Dein Score: ");
     }
 
     @Override
     public void pullPinBall() {
         System.out.println("Der Pinball ist im Spiel!");
+        flipper.setState(flipper.getPlayingFlipperState());
+    }
+
+    @Override
+    public void pinBallOut() {
     }
 
     @Override
     public void flipIt() {
-        System.out.println("Kein Pinball im Spiel, hau einen neuen Pinball rein!");
+        System.out.println("Kein Pinball im Spiel!");
     }
 
     @Override
@@ -37,26 +43,23 @@ public class EndFlipperState implements FlipperState {
 
         if (diceRoll == 10) {
             flipper.incrementPinBallCount(1);
-            System.out.println("So ein Glücksfall, ein weiterer Pinball ist im Spiel!");
+            System.out.println("So ein Glücksfall! Einen Pinball erhalten!");
+            System.out.println("Pinball-Zähler: " + flipper.getPinBallCount());
             flipper.setState(flipper.getPlayingFlipperState());
         }
-        System.out.println("Bitte nicht treten!");
-    }
-
-    public void winTheGame() {
-        System.out.println("Spiel Vorbei. Dein Score ist "); //scoreCounter einbauen!
+        else {
+            System.out.println("Lass deinen Frust nicht an mir aus!");
+        }
     }
 
     @Override
     public void end() {
-
-        if (flipper.getCoinCount() == 0) {
-            System.out.println("Du hast keine Coins mehr. Spiel zu Ende.");
-            flipper.setState(flipper.getNoCreditFlipperState());
-        }
-        else {
-            System.out.println("Du hast noch " + flipper.getCoinCount() + " Coins. Auf zur nächsten Runde!");
-            flipper.setState(flipper.getReadyFlipperState());
-        }
+        flipper.setCoinCountZero();
+        flipper.setPinBallCountZero();
+        System.out.println("Pinball-Zähler: " + flipper.getPinBallCount());
+        System.out.println("Coin-Zähler: " + flipper.getCoinCount());
+        System.out.println("Highscore: 999999999"); // + flipper.getHighScoreCount());
+        System.out.println("Genug gespielt, good bye.");
+        System.exit(0);
     }
 }

@@ -11,13 +11,14 @@ public class ReadyFlipperState implements FlipperState {
     @Override
     public void insertCoin() {
         flipper.incrementCoinCount();
-        System.out.println("Ein weiterer Coin eingeworfen. Coin-Zähler: " + flipper.getCoinCount());
+        System.out.println("Ein weiterer Coin eingeworfen.\n" +
+                "Coin-Zähler: " + flipper.getCoinCount());
     }
 
     @Override
     public void start() {
         System.out.println("Spiel gestartet!");
-        System.out.println("Pinball-Zäler: " + flipper.getPinBallCount());
+        System.out.println("Pinball-Zähler: " + flipper.getPinBallCount());
         System.out.println("Ziehe am Ball Shooter, um den Pinball ins Spielfeld zu schleudern!");
         flipper.setState(flipper.getPlayingFlipperState());
     }
@@ -25,6 +26,11 @@ public class ReadyFlipperState implements FlipperState {
     @Override
     public void pullPinBall() {
         System.out.println("Du musst das Spiel zuerst starten, du Anfänger!");
+    }
+
+    @Override
+    public void pinBallOut() {
+        // Kein Pinball im Spiel!
     }
 
     @Override
@@ -43,7 +49,9 @@ public class ReadyFlipperState implements FlipperState {
                 System.out.println("Schade, du hast ein Coin verloren! Coin-Zähler: " + flipper.getCoinCount());
                 flipper.setState(flipper.getNoCreditFlipperState());
             }
-            System.out.println("Schade, du hast ein Coin verloren! Coin-Zähler: " + flipper.getCoinCount());
+            else {
+                System.out.println("Schade, du hast ein Coin verloren! Coin-Zähler: " + flipper.getCoinCount());
+            }
         }
         else if (diceRoll == 5) {
             flipper.incrementCoinCount();
@@ -51,7 +59,8 @@ public class ReadyFlipperState implements FlipperState {
         }
         else if (diceRoll == 1) {
             flipper.setCoinCountZero();
-            System.out.println("Oh nein, alle Coins sind weg, das Spiel wurde unterbrochen... Coin-Zähler: " + flipper.getCoinCount());
+            System.out.println("Oh nein, alle Coins sind weg, das Spiel wurde unterbrochen..." +
+                    "Coin-Zähler: " + flipper.getCoinCount());
             flipper.setState(flipper.getNoCreditFlipperState());
         }
         else {
@@ -63,7 +72,8 @@ public class ReadyFlipperState implements FlipperState {
     public void end() {
         flipper.setCoinCountZero();
         flipper.setPinBallCountZero();
-        System.out.println("Spiel beendet! Ich behalte deine restlichen Coins! Coin-Zähler: " + flipper.getCoinCount());
+        System.out.println("Spiel beendet! Ich behalte deine restlichen Coins! " +
+                "Coin-Zähler: " + flipper.getCoinCount());
         flipper.setState(flipper.getNoCreditFlipperState());
     }
 }

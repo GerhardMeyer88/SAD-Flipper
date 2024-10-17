@@ -12,7 +12,8 @@ public class NoCreditFlipperState implements FlipperState {
 
     @Override
     public void insertCoin(){
-        System.out.println("Coin eingeworfen. Coin-Zähler: " + flipper.getCoinCount());
+        System.out.println("Coin eingeworfen.\n" +
+                "Coin-Zähler: " + flipper.getCoinCount());
         flipper.incrementCoinCount();
         flipper.setState(flipper.getReadyFlipperState());
     }
@@ -24,7 +25,12 @@ public class NoCreditFlipperState implements FlipperState {
 
     @Override
     public void pullPinBall() {
-        System.out.println("Ein lautes Schnalzen ertönt, aber es ist keine Spielkugel geladen. Wirf ein Coin rein!");
+        System.out.println("Ein lautes Schnalzen ertönt, aber es ist kein Pinball geladen. Wirf ein Coin rein!");
+    }
+
+    @Override
+    public void pinBallOut() {
+        // Kein Pinball im Spiel!
     }
 
     @Override
@@ -40,7 +46,9 @@ public class NoCreditFlipperState implements FlipperState {
             System.out.println("Du hast deinen Frust rauseglassen, Zeit nach Hause zu gehen.");
             flipper.end();
         }
-        System.out.println("Der Flippertisch wackelt von deinem Tritt!");
+        else {
+            System.out.println("Der Flippertisch wackelt von deinem Tritt!");
+        }
     }
 
     @Override

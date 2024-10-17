@@ -1,21 +1,24 @@
 package SAD.Flipper;
-
 import java.util.Scanner;
 
 public class Flipper {
     private FlipperState noCreditFlipperState;
     private FlipperState readyFlipperState;
     private FlipperState playingFlipperState;
+    private FlipperState ballIsRollingFlipperState;
     private FlipperState endFlipperState;
 
     private FlipperState currentFlipperState;
+
     private int pinBallCount = 0;
     private int coinCount = 0;
+    public int highScore = 0;
 
     public Flipper() {
         noCreditFlipperState = new NoCreditFlipperState(this);
         readyFlipperState = new ReadyFlipperState(this);
         playingFlipperState = new PlayingFlipperState(this);
+        ballIsRollingFlipperState = new BallIsRollingFlipperState(this);
         endFlipperState = new EndFlipperState(this);
         currentFlipperState = noCreditFlipperState;
     }
@@ -58,6 +61,10 @@ public class Flipper {
 
     public FlipperState getPlayingFlipperState() {
         return playingFlipperState;
+    }
+
+    public FlipperState getBallIsRollingFlipperState() {
+        return ballIsRollingFlipperState;
     }
 
     public FlipperState getEndFlipperState() {
@@ -129,16 +136,17 @@ public class Flipper {
                 case "b":
                     flipper.pullBall();
                     break;
-                case "e":
-                    flipper.end();
-                case "t":
-                    flipper.kickIt();
-                    break;
                 case "f":
                     flipper.flipIt();
                     break;
+                case "t":
+                    flipper.kickIt();
+                    break;
+                case "e":
+                    flipper.end();
+                    break;
                 default:
-                    System.out.println("Ungültige Eingabe.");
+                    System.out.println("Ungültige Eingabe.\n");
                     System.out.println("Verwende folgende Tasten: ");
                     System.out.println("c - Coin einwerfen");
                     System.out.println("s - Start drücken");
