@@ -1,15 +1,9 @@
 package SAD.Flipper;
 
-public class Bumper implements FlipperElements {
-
-
-    @Override
-    public void beHit() {
-
-    }
+public class Bumper implements Command {
 
     @Override
-    public void countScore() {
-
+    public void execute() {
+        System.out.println("Bumper getroffen: ");
     }
 }

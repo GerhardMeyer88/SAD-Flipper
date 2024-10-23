@@ -1,4 +1,5 @@
 package SAD.Flipper;
+
 import java.util.Scanner;
 
 public class Flipper {
@@ -95,7 +96,6 @@ public class Flipper {
 
     public void incrementCoinCount() {
         coinCount++;
-        pinBallCount += 3;
     }
 
     public void decrementCoinCount() {

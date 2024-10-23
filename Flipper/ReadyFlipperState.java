@@ -17,7 +17,10 @@ public class ReadyFlipperState implements FlipperState {
 
     @Override
     public void start() {
+        flipper.decrementCoinCount();
+        flipper.incrementPinBallCount(3);
         System.out.println("Spiel gestartet!");
+        System.out.println(" 1 Coin gegen 3 Bälle getauscht.\nCoin-Zähler: " + flipper.getCoinCount());
         System.out.println("Pinball-Zähler: " + flipper.getPinBallCount());
         System.out.println("Ziehe am Ball Shooter, um den Pinball ins Spielfeld zu schleudern!");
         flipper.setState(flipper.getPlayingFlipperState());
@@ -46,20 +49,20 @@ public class ReadyFlipperState implements FlipperState {
         if (diceRoll == 2) {
             flipper.decrementCoinCount();
             if (flipper.getCoinCount() == 0) {
-                System.out.println("Schade, du hast ein Coin verloren! Coin-Zähler: " + flipper.getCoinCount());
+                System.out.println("Schade, du hast ein Coin verloren!\nCoin-Zähler: " + flipper.getCoinCount());
                 flipper.setState(flipper.getNoCreditFlipperState());
             }
             else {
-                System.out.println("Schade, du hast ein Coin verloren! Coin-Zähler: " + flipper.getCoinCount());
+                System.out.println("Schade, du hast ein Coin verloren!\nCoin-Zähler: " + flipper.getCoinCount());
             }
         }
         else if (diceRoll == 5) {
             flipper.incrementCoinCount();
-            System.out.println("Wow, du hast einen Coin dazugewonnen! Coin-Zähler: " + flipper.getCoinCount());
+            System.out.println("Wow, du hast einen Coin dazugewonnen!\nCoin-Zähler: " + flipper.getCoinCount());
         }
         else if (diceRoll == 1) {
             flipper.setCoinCountZero();
-            System.out.println("Oh nein, alle Coins sind weg, das Spiel wurde unterbrochen..." +
+            System.out.println("Oh nein, alle Coins sind weg, das Spiel wurde unterbrochen...\n" +
                     "Coin-Zähler: " + flipper.getCoinCount());
             flipper.setState(flipper.getNoCreditFlipperState());
         }

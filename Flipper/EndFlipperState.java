@@ -1,8 +1,9 @@
 package SAD.Flipper;
-import java.util.Random;
 
 public class EndFlipperState implements FlipperState {
     private final Flipper flipper;
+
+    public int kickCounter = 0;
 
     public EndFlipperState(Flipper flipper) {
         this.flipper = flipper;
@@ -18,13 +19,26 @@ public class EndFlipperState implements FlipperState {
     @Override
     public void start() {
         System.out.println("Zeigt später deinen aktuellen Score!");
-        System.out.println("Dein Score: ");
+        System.out.println("Dein Score: "); //Score kommt noch
+
+        if (flipper.getCoinCount() > 0) {
+            flipper.decrementCoinCount();
+            flipper.incrementPinBallCount(3);
+            System.out.println("Neues Spiel gestartet!");
+            System.out.println(" 1 Coin gegen 3 Bälle getauscht.\nCoin-Zähler: " + flipper.getCoinCount());
+            System.out.println("Pinball-Zähler: " + flipper.getPinBallCount());
+            System.out.println("Hau den Pinball ins Spielfeld!");
+            flipper.setState(flipper.getBallIsRollingFlipperState());
+        }
+        else {
+            System.out.println("Kein Credit Vorhanden, Spiel Beendet.");
+            flipper.setState(flipper.getNoCreditFlipperState());
+        }
     }
 
     @Override
     public void pullPinBall() {
-        System.out.println("Der Pinball ist im Spiel!");
-        flipper.setState(flipper.getPlayingFlipperState());
+        System.out.println("Willst du ohne Pinball spielen, wie soll das klappen?");
     }
 
     @Override
@@ -38,17 +52,16 @@ public class EndFlipperState implements FlipperState {
 
     @Override
     public void kickIt() {
-        Random rand = new Random();
-        int diceRoll = rand.nextInt(20) + 1;
+        kickCounter++;
 
-        if (diceRoll == 10) {
-            flipper.incrementPinBallCount(1);
-            System.out.println("So ein Glücksfall! Einen Pinball erhalten!");
-            System.out.println("Pinball-Zähler: " + flipper.getPinBallCount());
-            flipper.setState(flipper.getPlayingFlipperState());
+        if (kickCounter == 2) {
+            flipper.setCoinCountZero();
+            flipper.setPinBallCountZero();
+            System.out.println("Das war einmal zu viel getreten! Spiel Beendet!");
+            System.exit(0);
         }
         else {
-            System.out.println("Lass deinen Frust nicht an mir aus!");
+            System.out.println("Gib nicht mir die Schuld, wenn du verloren hast!");
         }
     }
 
