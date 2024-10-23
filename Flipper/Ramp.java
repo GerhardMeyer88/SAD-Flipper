@@ -1,15 +1,9 @@
 package SAD.Flipper;
 
-public class Ramp implements FlipperElements {
-
-
-    @Override
-    public void beHit() {
-
-    }
+public class Ramp implements Command {
 
     @Override
-    public void countScore() {
-
+    public void execute() {
+        System.out.println("Der Pinball durchläuft die Rampe: ");
     }
 }

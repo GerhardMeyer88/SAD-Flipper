@@ -1,15 +1,9 @@
 package SAD.Flipper;
 
-public class Kicker implements FlipperElements {
-
-
-    @Override
-    public void beHit() {
-
-    }
+public class Kicker implements Command {
 
     @Override
-    public void countScore() {
-
+    public void execute() {
+        System.out.println("Kicker getroffen: ");
     }
 }

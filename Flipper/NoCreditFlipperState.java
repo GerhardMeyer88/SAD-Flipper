@@ -12,9 +12,9 @@ public class NoCreditFlipperState implements FlipperState {
 
     @Override
     public void insertCoin(){
-        System.out.println("Coin eingeworfen.\n" +
-                "Coin-Zähler: " + flipper.getCoinCount());
         flipper.incrementCoinCount();
+        System.out.println("Coin eingeworfen.");
+        System.out.println("Coin-Zähler: " + flipper.getCoinCount());
         flipper.setState(flipper.getReadyFlipperState());
     }
 
@@ -25,7 +25,7 @@ public class NoCreditFlipperState implements FlipperState {
 
     @Override
     public void pullPinBall() {
-        System.out.println("Ein lautes Schnalzen ertönt, aber es ist kein Pinball geladen. Wirf ein Coin rein!");
+        System.out.println("Ein lautes Schnalzen ertönt, aber es ist kein Pinball geladen.\nWirf ein Coin rein!");
     }
 
     @Override
@@ -42,7 +42,7 @@ public class NoCreditFlipperState implements FlipperState {
     public void kickIt() {
         kickCounter++;
 
-        if (kickCounter == 4) {
+        if (kickCounter == 2) {
             System.out.println("Du hast deinen Frust rauseglassen, Zeit nach Hause zu gehen.");
             flipper.end();
         }

@@ -62,7 +62,7 @@ public class PlayingFlipperState implements FlipperState {
         System.out.println("Pinball-Zähler: " + flipper.getPinBallCount());
         System.out.println("Coin-Zähler: " + flipper.getCoinCount());
         System.out.println("Highscore: "); // + flipper.getHighScoreCount());
-        System.out.println("Genug gespielt, good bye.");
+        System.out.println("Genug gespielt, ich gehe nach Hause.");
         System.exit(0);
     }
 }

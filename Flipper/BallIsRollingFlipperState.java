@@ -9,10 +9,17 @@ public class BallIsRollingFlipperState implements FlipperState {
         this.flipper = flipper;
     }
 
+    FlipperElement ramp = new FlipperElement(new Ramp());
+    FlipperElement bumper = new FlipperElement(new Bumper());
+    FlipperElement hole = new FlipperElement(new Hole());
+    FlipperElement kicker = new FlipperElement(new Kicker());
+    FlipperElement slingShot = new FlipperElement(new SlingShot());
+
 
     @Override
     public void insertCoin() {
-        System.out.println("Der Coin wird nicht angenommen, während ein Pinball im Spielfeld ist!");
+        System.out.println("Der Coin wird nicht angenommen, während ein Pinball im Spielfeld ist.\n" +
+                "Konzentriere dich lieber auf das Spiel!");
     }
 
     @Override
@@ -28,32 +35,44 @@ public class BallIsRollingFlipperState implements FlipperState {
     @Override
     public void pinBallOut() {
         System.out.println("Der Pinball landet im Aus.");
+        flipper.decrementPinBallCount();
 
-        if (flipper.getCoinCount() == 0 && flipper.getPinBallCount() == 0) {
-            System.out.println("Das war der letzte Pinball und du hast keine Coins mehr.");
-            System.out.println("Dein Score: 9999999"); //Hardcodet Score :D
-            flipper.setState(flipper.getNoCreditFlipperState());
+        System.out.println("Coin-Zähler: " + flipper.getCoinCount());
+        System.out.println("Pinball-Zähler: " + flipper.getPinBallCount());
+        System.out.println("Dein Score: 99999999"); //Punktestandzähler kommt noch
+
+        if (flipper.getPinBallCount() == 0) {
+            System.out.println("Das war der letzte Pinball.");
+            flipper.setState(flipper.getEndFlipperState());
         }
         else {
             flipper.setState(flipper.getPlayingFlipperState());
         }
-
     }
 
     @Override
     public void flipIt() {
         Random rand = new Random();
-        int diceRoll = rand.nextInt(5) + 1;
+        int diceRoll = rand.nextInt(7) + 1;
 
         switch (diceRoll) {
             case 1:
-                System.out.println("Der Flipper trifft den Pinball perfekt!");
+                ramp.hit();
                 break;
             case 2:
-                pinBallOut();
+                hole.hit();
+                break;
+            case 3:
+                bumper.hit();
+                break;
+            case 4:
+                kicker.hit();
+                break;
+            case 5:
+                slingShot.hit();
                 break;
             default:
-                System.out.println("Der Flipper trifft den Pinball!");
+                pinBallOut();
         }
     }
 
@@ -62,19 +81,28 @@ public class BallIsRollingFlipperState implements FlipperState {
         Random rand = new Random();
         int diceRoll = rand.nextInt(5) + 1;
 
-        if (diceRoll == 1) {
-            System.out.println("Kick Event. Ball trifft diverses, weil der Tisch wackelt.");
-        }
-        else if (diceRoll == 5) {
-            System.out.println("Ein weiteres Kick-Event, ein Pinball wird verloren oder so..");
-        }
-        else {
-            System.out.println("Kick Event: Das Scenario, was am häufigsten eintreten soll.");
+        switch (diceRoll) {
+            case 1:
+                System.out.println("Der Spieltisch wackelt.");
+                bumper.hit();
+                break;
+            case 2:
+                System.out.println("Ein gewaltiger Rums erschüttert den Spieltisch.");
+                kicker.hit();
+                break;
+            default:
+                pinBallOut();
         }
     }
 
     @Override
     public void end() {
-
+        flipper.setCoinCountZero();
+        flipper.setPinBallCountZero();
+        System.out.println("Während des Spiels aufhören. Was kann wichtiger sein als dein Highscore?");
+        System.out.println("Pinball-Zähler: " + flipper.getPinBallCount());
+        System.out.println("Coin-Zähler: " + flipper.getCoinCount());
+        System.out.println("Highscore: "); // + flipper.getHighScoreCount());
+        System.exit(0);
     }
 }
