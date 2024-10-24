@@ -12,7 +12,7 @@ public class Ramp implements CommandElement {
             System.out.println("Rampe 3 mal getroffen, sie öffnet sich!");
             System.out.println("10x Multiplikator: " + 10 * score + "Punkte");
             rampCounter = 0;
-            System.out.println("Die Rampe scließt sich wieder.");
+            System.out.println("Die Rampe schließt sich.");
             ScoreManager.addScore(score);
         }
         else {
