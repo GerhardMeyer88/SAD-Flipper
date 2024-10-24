@@ -1,6 +1,6 @@
 package SAD.Flipper;
 
-public class Bumper implements Command {
+public class Bumper implements CommandElement {
     private int score = 100;
 
     @Override

@@ -1,6 +1,6 @@
 package SAD.Flipper;
 
-public class Ramp implements Command {
+public class Ramp implements CommandElement {
     private int score = 180;
     private int rampCounter = 0;
 

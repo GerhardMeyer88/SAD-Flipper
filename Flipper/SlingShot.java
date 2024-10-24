@@ -1,6 +1,6 @@
 package SAD.Flipper;
 
-public class SlingShot implements Command {
+public class SlingShot implements CommandElement {
     private int score = 200;
 
     @Override

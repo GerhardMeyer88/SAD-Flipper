@@ -1,6 +1,5 @@
 package SAD.Flipper;
 
-import java.util.Random;
 import java.util.Scanner;
 
 public class Flipper {
@@ -14,7 +13,6 @@ public class Flipper {
 
     private int pinBallCount = 0;
     private int coinCount = 0;
-    private int scoreCount = 0;
 
     public Flipper() {
         noCreditFlipperState = new NoCreditFlipperState(this);
@@ -108,21 +106,6 @@ public class Flipper {
     public void setCoinCountZero() {
         coinCount = 0;
     }
-
-    public int getScoreCount() {
-        return scoreCount;
-    }
-
-    public void incrementScoreCount() {
-        scoreCount++;
-    }
-
-    public void decrementScoreCount() {
-        if (scoreCount > 0) {
-            scoreCount--;
-        }
-    }
-
 
     public static void main(String[] args) {
         Flipper flipper = new Flipper();

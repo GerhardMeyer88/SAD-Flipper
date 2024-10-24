@@ -1,5 +1,5 @@
 package SAD.Flipper;
 
-public interface Command {
+public interface CommandElement {
     void execute();
 }
