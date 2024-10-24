@@ -64,6 +64,7 @@ public class ReadyFlipperState implements FlipperState {
             flipper.setCoinCountZero();
             System.out.println("Oh nein, alle Coins sind weg, das Spiel wurde unterbrochen...\n" +
                     "Coin-Zähler: " + flipper.getCoinCount());
+            ScoreManager.resetScore();
             flipper.setState(flipper.getNoCreditFlipperState());
         }
         else {
@@ -77,6 +78,8 @@ public class ReadyFlipperState implements FlipperState {
         flipper.setPinBallCountZero();
         System.out.println("Spiel beendet! Ich behalte deine restlichen Coins! " +
                 "Coin-Zähler: " + flipper.getCoinCount());
+        System.out.println("Highscore: " + ScoreManager.getTotalScore());
+        ScoreManager.resetScore();
         flipper.setState(flipper.getNoCreditFlipperState());
     }
 }
