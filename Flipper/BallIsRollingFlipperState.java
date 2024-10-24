@@ -15,6 +15,14 @@ public class BallIsRollingFlipperState implements FlipperState {
     FlipperElement kicker = new FlipperElement(new Kicker());
     FlipperElement slingShot = new FlipperElement(new SlingShot());
 
+    Command hitRamp = new Ramp();
+    Command hitBumper = new Bumper();
+    Command hitHole = new Hole();
+    Command hitKicker = new Kicker();
+    Command hitSlingShot = new SlingShot();
+
+    MacroCommand macroCommand = new MacroCommand();
+
 
     @Override
     public void insertCoin() {
@@ -24,7 +32,7 @@ public class BallIsRollingFlipperState implements FlipperState {
 
     @Override
     public void start() {
-        System.out.println("Passiert nichts!");
+        System.out.println("Autoren: Gerhard Meyer");
     }
 
     @Override
@@ -39,7 +47,7 @@ public class BallIsRollingFlipperState implements FlipperState {
 
         System.out.println("Coin-Zähler: " + flipper.getCoinCount());
         System.out.println("Pinball-Zähler: " + flipper.getPinBallCount());
-        System.out.println("Dein Score: 99999999"); //Punktestandzähler kommt noch
+        System.out.println("Dein Score: int error"); //Punktestandzähler kommt noch
 
         if (flipper.getPinBallCount() == 0) {
             System.out.println("Das war der letzte Pinball.");
@@ -54,16 +62,35 @@ public class BallIsRollingFlipperState implements FlipperState {
     public void flipIt() {
         Random rand = new Random();
         int diceRoll = rand.nextInt(7) + 1;
+        int guessNumber = rand.nextInt(3) + 1;
 
         switch (diceRoll) {
             case 1:
                 ramp.hit();
                 break;
             case 2:
-                hole.hit();
+                System.out.println("Bonus Würfelspiel!");
+                System.out.println("Eine Zahl zwischen 1 und 3 wird gewürfelt, 3 Gewinnt.");
+                System.out.println("Der Würfel fällt: " + guessNumber);
+
+                if (guessNumber == 3) {
+                    System.out.println("BOUNSPUNKTE!!!!");
+                    macroCommand.addCommand(hitRamp);
+                    macroCommand.addCommand(hitHole);
+                    macroCommand.execute();
+                    macroCommand.clearCommand();
+                }
+                else {
+                    System.out.println("Zu schlecht gewürfelt!");
+                    hole.hit();
+                }
                 break;
             case 3:
-                bumper.hit();
+                macroCommand.addCommand(hitBumper);
+                macroCommand.addCommand(hitKicker);
+                macroCommand.addCommand(hitSlingShot);
+                macroCommand.execute();
+                macroCommand.clearCommand();
                 break;
             case 4:
                 kicker.hit();
@@ -102,7 +129,8 @@ public class BallIsRollingFlipperState implements FlipperState {
         System.out.println("Während des Spiels aufhören. Was kann wichtiger sein als dein Highscore?");
         System.out.println("Pinball-Zähler: " + flipper.getPinBallCount());
         System.out.println("Coin-Zähler: " + flipper.getCoinCount());
-        System.out.println("Highscore: "); // + flipper.getHighScoreCount());
+        System.out.println("Highscore: " + ScoreManager.getTotalScore());
+        ScoreManager.resetScore();
         System.exit(0);
     }
 }

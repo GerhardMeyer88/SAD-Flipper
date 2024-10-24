@@ -47,6 +47,8 @@ public class PlayingFlipperState implements FlipperState {
             System.out.println("Neustart...");
             System.out.println("Coin-Zähler: " + flipper.getCoinCount());
             System.out.println("Pinball-Zähler: " + flipper.getPinBallCount());
+            System.out.println("Highscore: " + ScoreManager.getTotalScore());
+            ScoreManager.resetScore();
             flipper.setState(flipper.getNoCreditFlipperState());
         }
         else {
@@ -61,7 +63,8 @@ public class PlayingFlipperState implements FlipperState {
         System.out.println("Spiel beendet!");
         System.out.println("Pinball-Zähler: " + flipper.getPinBallCount());
         System.out.println("Coin-Zähler: " + flipper.getCoinCount());
-        System.out.println("Highscore: "); // + flipper.getHighScoreCount());
+        System.out.println("Highscore: " + ScoreManager.getTotalScore());
+        ScoreManager.resetScore();
         System.out.println("Genug gespielt, ich gehe nach Hause.");
         System.exit(0);
     }

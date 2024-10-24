@@ -1,5 +1,6 @@
 package SAD.Flipper;
 
+import java.util.Random;
 import java.util.Scanner;
 
 public class Flipper {
@@ -13,7 +14,7 @@ public class Flipper {
 
     private int pinBallCount = 0;
     private int coinCount = 0;
-    public int highScore = 0;
+    private int scoreCount = 0;
 
     public Flipper() {
         noCreditFlipperState = new NoCreditFlipperState(this);
@@ -108,10 +109,25 @@ public class Flipper {
         coinCount = 0;
     }
 
+    public int getScoreCount() {
+        return scoreCount;
+    }
+
+    public void incrementScoreCount() {
+        scoreCount++;
+    }
+
+    public void decrementScoreCount() {
+        if (scoreCount > 0) {
+            scoreCount--;
+        }
+    }
+
+
     public static void main(String[] args) {
         Flipper flipper = new Flipper();
         Scanner scanner = new Scanner(System.in);
-        boolean quit = false;
+        boolean gameOn = true;
 
         System.out.println("Flipper Simulation gestartet.");
         System.out.println("Verwende folgende Tasten: ");
@@ -122,8 +138,8 @@ public class Flipper {
         System.out.println("t - Treten");
         System.out.println("e - Ende drücken");
 
-        while (!quit) {
-            System.out.println("Bitte eine Taste drücken: ");
+        while (gameOn) {
+            System.out.println("Eingabe: ");
             String input = scanner.nextLine().trim().toLowerCase();
 
             switch (input) {

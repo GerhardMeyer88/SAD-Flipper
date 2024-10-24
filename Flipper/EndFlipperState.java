@@ -19,7 +19,7 @@ public class EndFlipperState implements FlipperState {
     @Override
     public void start() {
         System.out.println("Zeigt später deinen aktuellen Score!");
-        System.out.println("Dein Score: "); //Score kommt noch
+        System.out.println("Highscore: " + ScoreManager.getTotalScore());
 
         if (flipper.getCoinCount() > 0) {
             flipper.decrementCoinCount();
@@ -29,8 +29,7 @@ public class EndFlipperState implements FlipperState {
             System.out.println("Pinball-Zähler: " + flipper.getPinBallCount());
             System.out.println("Hau den Pinball ins Spielfeld!");
             flipper.setState(flipper.getBallIsRollingFlipperState());
-        }
-        else {
+        } else {
             System.out.println("Kein Credit Vorhanden, Spiel Beendet.");
             flipper.setState(flipper.getNoCreditFlipperState());
         }
@@ -59,8 +58,7 @@ public class EndFlipperState implements FlipperState {
             flipper.setPinBallCountZero();
             System.out.println("Das war einmal zu viel getreten! Spiel Beendet!");
             System.exit(0);
-        }
-        else {
+        } else {
             System.out.println("Gib nicht mir die Schuld, wenn du verloren hast!");
         }
     }
@@ -71,7 +69,8 @@ public class EndFlipperState implements FlipperState {
         flipper.setPinBallCountZero();
         System.out.println("Pinball-Zähler: " + flipper.getPinBallCount());
         System.out.println("Coin-Zähler: " + flipper.getCoinCount());
-        System.out.println("Highscore: 999999999"); // + flipper.getHighScoreCount());
+        System.out.println("Highscore: " + ScoreManager.getTotalScore());
+        ScoreManager.resetScore();
         System.out.println("Genug gespielt, good bye.");
         System.exit(0);
     }
