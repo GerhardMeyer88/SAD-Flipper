@@ -67,6 +67,10 @@ public class Flipper {
         currentFlipperDesign.showAutorsFont();
     }
 
+    public void eventFont() {
+        currentFlipperDesign.eventFont();
+    }
+
     public void insertCoin() {
         currentFlipperState.insertCoin();
     }

@@ -9,4 +9,5 @@ public interface FlipperDesign {
     void pinBallOutFont();
     void insertCoinFont();
     void showAutorsFont();
+    void eventFont();
 }
