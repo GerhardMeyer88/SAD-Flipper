@@ -3,6 +3,7 @@ package SAD.Flipper;
 import SAD.Flipper.FlipperDesign.FlipperDesign;
 import SAD.Flipper.FlipperDesign.FlipperFireDesign;
 import SAD.Flipper.FlipperDesign.FlipperHyperDesign;
+import SAD.Flipper.FlipperDesign.Greeting;
 import SAD.Flipper.FlipperStates.*;
 import java.util.Scanner;
 
@@ -175,10 +176,7 @@ public class Flipper {
         Scanner scanner = new Scanner(System.in);
         boolean gameOn = true;
 
-        System.out.println("Wähle dein Design:");
-        System.out.println("\"h\" = Hyper");
-        System.out.println("\"f\" = Fire\n");
-
+        Greeting.greeting();
         String desingnInput = FlipperInput.readInput(scanner);
 
         if (desingnInput.equalsIgnoreCase("h")) {
