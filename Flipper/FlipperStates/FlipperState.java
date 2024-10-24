@@ -1,4 +1,4 @@
-package SAD.Flipper;
+package SAD.Flipper.FlipperStates;
 
 public interface FlipperState {
 

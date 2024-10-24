@@ -1,4 +1,9 @@
-package SAD.Flipper;
+package SAD.Flipper.FlipperStates;
+
+import SAD.Flipper.*;
+import SAD.Flipper.FlipperElements.CommandElement;
+import SAD.Flipper.FlipperElements.*;
+
 import java.util.Random;
 
 public class BallIsRollingFlipperState implements FlipperState {
@@ -10,7 +15,8 @@ public class BallIsRollingFlipperState implements FlipperState {
     }
 
     CommandElement hitRamp = new Ramp();
-    CommandElement hitBumper = new Bumper();
+    CommandElement hitBumperRight = new BumperRight();
+    CommandElement hitBumperLeft = new BumperLeft();
     CommandElement hitHole = new Hole();
     CommandElement hitKicker = new Kicker();
     CommandElement hitSlingShot = new SlingShot();
@@ -26,7 +32,7 @@ public class BallIsRollingFlipperState implements FlipperState {
 
     @Override
     public void start() {
-        System.out.println("Autoren: Gerhard Meyer");
+        flipper.showAutorsFont();
     }
 
     @Override
@@ -36,7 +42,7 @@ public class BallIsRollingFlipperState implements FlipperState {
 
     @Override
     public void pinBallOut() {
-        System.out.println("Der Pinball landet im Aus.");
+        flipper.pinBallOutFont();
         flipper.decrementPinBallCount();
 
         System.out.println("Coin-Zähler: " + flipper.getCoinCount());
@@ -46,8 +52,7 @@ public class BallIsRollingFlipperState implements FlipperState {
         if (flipper.getPinBallCount() == 0) {
             System.out.println("Das war der letzte Pinball.");
             flipper.setState(flipper.getEndFlipperState());
-        }
-        else {
+        } else {
             flipper.setState(flipper.getPlayingFlipperState());
         }
     }
@@ -55,50 +60,49 @@ public class BallIsRollingFlipperState implements FlipperState {
     @Override
     public void flipIt() {
         Random rand = new Random();
+
         int diceRoll = rand.nextInt(7) + 1;
-        int guessNumber = rand.nextInt(3) + 1;
+        int randomNumber = rand.nextInt(3) + 1;
 
         switch (diceRoll) {
             case 1:
-                macroCommand.addCommand(hitKicker);
-                macroCommand.execute();
-                macroCommand.clearCommand();
+                CountdownInputEvent.letterGame();
                 break;
             case 2:
+                flipper.bonusGameFont();
                 System.out.println("Bonus Würfelspiel!");
                 System.out.println("Eine Zahl zwischen 1 und 3 wird gewürfelt, 3 Gewinnt.");
-                System.out.println("Der Würfel fällt: " + guessNumber);
+                System.out.println("Der Würfel fällt: " + randomNumber);
 
-                if (guessNumber == 3) {
-                    System.out.println("BOUNSPUNKTE!!!!");
+                if (randomNumber == 3) {
+                    flipper.bonusGameFont();
                     macroCommand.addCommand(hitRamp);
                     macroCommand.addCommand(hitHole);
-                    macroCommand.execute();
+                    macroCommand.hit();
                     macroCommand.clearCommand();
-                }
-                else {
-                    System.out.println("Zu schlecht gewürfelt!");
+                } else {
+                    System.out.println("Schlecht gewürfelt!");
                     macroCommand.addCommand(hitHole);
-                    macroCommand.execute();
+                    macroCommand.hit();
                     macroCommand.clearCommand();
                 }
                 break;
             case 3:
-                macroCommand.addCommand(hitBumper);
+                macroCommand.addCommand(hitBumperLeft);
                 macroCommand.addCommand(hitKicker);
                 macroCommand.addCommand(hitSlingShot);
-                macroCommand.execute();
+                macroCommand.hit();
                 macroCommand.clearCommand();
                 break;
             case 4:
-                macroCommand.addCommand(hitBumper);
-                macroCommand.execute();
+                macroCommand.addCommand(hitBumperRight);
+                macroCommand.hit();
                 macroCommand.clearCommand();
                 break;
             case 5:
                 macroCommand.addCommand(hitSlingShot);
                 macroCommand.addCommand(hitKicker);
-                macroCommand.execute();
+                macroCommand.hit();
                 macroCommand.clearCommand();
                 break;
             default:
@@ -115,13 +119,13 @@ public class BallIsRollingFlipperState implements FlipperState {
             case 1:
                 System.out.println("Der Spieltisch wackelt.");
                 macroCommand.addCommand(hitKicker);
-                macroCommand.execute();
+                macroCommand.hit();
                 macroCommand.clearCommand();
                 break;
             case 2:
                 System.out.println("Ein gewaltiger Rums erschüttert den Spieltisch.");
-                macroCommand.addCommand(hitBumper);
-                macroCommand.execute();
+                macroCommand.addCommand(hitRamp);
+                macroCommand.hit();
                 macroCommand.clearCommand();
                 break;
             default:
@@ -133,6 +137,7 @@ public class BallIsRollingFlipperState implements FlipperState {
     public void end() {
         flipper.setCoinCountZero();
         flipper.setPinBallCountZero();
+        flipper.startGameFont();
         System.out.println("Während des Spiels aufhören. Was kann wichtiger sein als dein Highscore?");
         System.out.println("Pinball-Zähler: " + flipper.getPinBallCount());
         System.out.println("Coin-Zähler: " + flipper.getCoinCount());

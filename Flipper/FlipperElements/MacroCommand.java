@@ -1,4 +1,4 @@
-package SAD.Flipper;
+package SAD.Flipper.FlipperElements;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -16,9 +16,9 @@ public class MacroCommand implements CommandElement {
     }
 
     @Override
-    public void execute() {
+    public void hit() {
         for (CommandElement command : commands) {
-            command.execute();
+            command.hit();
         }
     }
 }
