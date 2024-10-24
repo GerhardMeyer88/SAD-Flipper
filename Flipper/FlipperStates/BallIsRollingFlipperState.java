@@ -138,7 +138,7 @@ public class BallIsRollingFlipperState implements FlipperState {
         flipper.setCoinCountZero();
         flipper.setPinBallCountZero();
         flipper.startGameFont();
-        System.out.println("Während des Spiels aufhören. Was kann wichtiger sein als dein Highscore?");
+        System.out.println("Während des Spiels aufhören. Was kann wichtiger als dein Highscore sein?");
         System.out.println("Pinball-Zähler: " + flipper.getPinBallCount());
         System.out.println("Coin-Zähler: " + flipper.getCoinCount());
         System.out.println("Highscore: " + ScoreManager.getTotalScore());
