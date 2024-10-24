@@ -3,11 +3,11 @@ package SAD.Flipper;
 import java.util.ArrayList;
 import java.util.List;
 
-public class MacroCommand implements Command {
+public class MacroCommand implements CommandElement {
 
-    private List<Command> commands = new ArrayList<>();
+    private List<CommandElement> commands = new ArrayList<>();
 
-    public void addCommand(Command command) {
+    public void addCommand(CommandElement command) {
         commands.add(command);
     }
 
@@ -17,7 +17,7 @@ public class MacroCommand implements Command {
 
     @Override
     public void execute() {
-        for (Command command : commands) {
+        for (CommandElement command : commands) {
             command.execute();
         }
     }

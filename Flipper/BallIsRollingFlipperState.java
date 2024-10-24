@@ -9,17 +9,11 @@ public class BallIsRollingFlipperState implements FlipperState {
         this.flipper = flipper;
     }
 
-    FlipperElement ramp = new FlipperElement(new Ramp());
-    FlipperElement bumper = new FlipperElement(new Bumper());
-    FlipperElement hole = new FlipperElement(new Hole());
-    FlipperElement kicker = new FlipperElement(new Kicker());
-    FlipperElement slingShot = new FlipperElement(new SlingShot());
-
-    Command hitRamp = new Ramp();
-    Command hitBumper = new Bumper();
-    Command hitHole = new Hole();
-    Command hitKicker = new Kicker();
-    Command hitSlingShot = new SlingShot();
+    CommandElement hitRamp = new Ramp();
+    CommandElement hitBumper = new Bumper();
+    CommandElement hitHole = new Hole();
+    CommandElement hitKicker = new Kicker();
+    CommandElement hitSlingShot = new SlingShot();
 
     MacroCommand macroCommand = new MacroCommand();
 
@@ -47,7 +41,7 @@ public class BallIsRollingFlipperState implements FlipperState {
 
         System.out.println("Coin-Zähler: " + flipper.getCoinCount());
         System.out.println("Pinball-Zähler: " + flipper.getPinBallCount());
-        System.out.println("Dein Score: int error"); //Punktestandzähler kommt noch
+        System.out.println("Dein Score: " + ScoreManager.getTotalScore());
 
         if (flipper.getPinBallCount() == 0) {
             System.out.println("Das war der letzte Pinball.");
@@ -66,7 +60,9 @@ public class BallIsRollingFlipperState implements FlipperState {
 
         switch (diceRoll) {
             case 1:
-                ramp.hit();
+                macroCommand.addCommand(hitKicker);
+                macroCommand.execute();
+                macroCommand.clearCommand();
                 break;
             case 2:
                 System.out.println("Bonus Würfelspiel!");
@@ -82,7 +78,9 @@ public class BallIsRollingFlipperState implements FlipperState {
                 }
                 else {
                     System.out.println("Zu schlecht gewürfelt!");
-                    hole.hit();
+                    macroCommand.addCommand(hitHole);
+                    macroCommand.execute();
+                    macroCommand.clearCommand();
                 }
                 break;
             case 3:
@@ -93,10 +91,15 @@ public class BallIsRollingFlipperState implements FlipperState {
                 macroCommand.clearCommand();
                 break;
             case 4:
-                kicker.hit();
+                macroCommand.addCommand(hitBumper);
+                macroCommand.execute();
+                macroCommand.clearCommand();
                 break;
             case 5:
-                slingShot.hit();
+                macroCommand.addCommand(hitSlingShot);
+                macroCommand.addCommand(hitKicker);
+                macroCommand.execute();
+                macroCommand.clearCommand();
                 break;
             default:
                 pinBallOut();
@@ -111,11 +114,15 @@ public class BallIsRollingFlipperState implements FlipperState {
         switch (diceRoll) {
             case 1:
                 System.out.println("Der Spieltisch wackelt.");
-                bumper.hit();
+                macroCommand.addCommand(hitKicker);
+                macroCommand.execute();
+                macroCommand.clearCommand();
                 break;
             case 2:
                 System.out.println("Ein gewaltiger Rums erschüttert den Spieltisch.");
-                kicker.hit();
+                macroCommand.addCommand(hitBumper);
+                macroCommand.execute();
+                macroCommand.clearCommand();
                 break;
             default:
                 pinBallOut();

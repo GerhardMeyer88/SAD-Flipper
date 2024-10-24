@@ -1,6 +1,6 @@
 package SAD.Flipper;
 
-public class Hole implements Command {
+public class Hole implements CommandElement {
     private int score = 150;
 
     @Override

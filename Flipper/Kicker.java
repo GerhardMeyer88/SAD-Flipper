@@ -1,6 +1,6 @@
 package SAD.Flipper;
 
-public class Kicker implements Command {
+public class Kicker implements CommandElement {
     private int score = 70;
 
     @Override

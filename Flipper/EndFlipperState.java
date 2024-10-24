@@ -18,8 +18,8 @@ public class EndFlipperState implements FlipperState {
 
     @Override
     public void start() {
-        System.out.println("Zeigt später deinen aktuellen Score!");
-        System.out.println("Highscore: " + ScoreManager.getTotalScore());
+        System.out.println("Dein letzer Highscore: " + ScoreManager.getTotalScore());
+        ScoreManager.resetScore();
 
         if (flipper.getCoinCount() > 0) {
             flipper.decrementCoinCount();
@@ -30,7 +30,7 @@ public class EndFlipperState implements FlipperState {
             System.out.println("Hau den Pinball ins Spielfeld!");
             flipper.setState(flipper.getBallIsRollingFlipperState());
         } else {
-            System.out.println("Kein Credit Vorhanden, Spiel Beendet.");
+            System.out.println("Kein Credit Vorhanden, wirf bitte einen Coin rein!");
             flipper.setState(flipper.getNoCreditFlipperState());
         }
     }
