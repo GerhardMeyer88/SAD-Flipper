@@ -1,4 +1,7 @@
-package SAD.Flipper;
+package SAD.Flipper.FlipperStates;
+
+import SAD.Flipper.Flipper;
+import SAD.Flipper.ScoreManager;
 
 public class PlayingFlipperState implements FlipperState {
 
@@ -12,7 +15,7 @@ public class PlayingFlipperState implements FlipperState {
     @Override
     public void insertCoin(){
         flipper.incrementCoinCount();
-        System.out.println("Coin eingeworfen.");
+        flipper.insertCoinFont();
         System.out.println("Coin-Zähler: " + flipper.getCoinCount());
     }
 
@@ -23,7 +26,7 @@ public class PlayingFlipperState implements FlipperState {
 
     @Override
     public void pullPinBall() {
-        System.out.println("Der Pinball wird in das Spielfeld geschleudert.");
+        flipper.pinBallInFont();
         flipper.setState(flipper.getBallIsRollingFlipperState());
     }
 
@@ -60,7 +63,7 @@ public class PlayingFlipperState implements FlipperState {
     public void end() {
         flipper.setCoinCountZero();
         flipper.setPinBallCountZero();
-        System.out.println("Spiel beendet!");
+        flipper.startGameFont();
         System.out.println("Pinball-Zähler: " + flipper.getPinBallCount());
         System.out.println("Coin-Zähler: " + flipper.getCoinCount());
         System.out.println("Highscore: " + ScoreManager.getTotalScore());

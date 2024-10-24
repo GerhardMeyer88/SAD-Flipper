@@ -1,4 +1,6 @@
-package SAD.Flipper;
+package SAD.Flipper.FlipperStates;
+
+import SAD.Flipper.Flipper;
 
 public class NoCreditFlipperState implements FlipperState {
 
@@ -13,7 +15,7 @@ public class NoCreditFlipperState implements FlipperState {
     @Override
     public void insertCoin(){
         flipper.incrementCoinCount();
-        System.out.println("Coin eingeworfen.");
+        flipper.insertCoinFont();
         System.out.println("Coin-Zähler: " + flipper.getCoinCount());
         flipper.setState(flipper.getReadyFlipperState());
     }

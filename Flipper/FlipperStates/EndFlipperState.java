@@ -1,4 +1,7 @@
-package SAD.Flipper;
+package SAD.Flipper.FlipperStates;
+
+import SAD.Flipper.Flipper;
+import SAD.Flipper.ScoreManager;
 
 public class EndFlipperState implements FlipperState {
     private final Flipper flipper;
@@ -12,8 +15,8 @@ public class EndFlipperState implements FlipperState {
     @Override
     public void insertCoin() {
         flipper.incrementCoinCount();
-        System.out.println("Coin eingeworfen.\n" +
-                "Coin-Zähler: " + flipper.getCoinCount());
+        flipper.insertCoinFont();
+        System.out.println("Coin-Zähler: " + flipper.getCoinCount());
     }
 
     @Override
@@ -24,13 +27,13 @@ public class EndFlipperState implements FlipperState {
         if (flipper.getCoinCount() > 0) {
             flipper.decrementCoinCount();
             flipper.incrementPinBallCount(3);
-            System.out.println("Neues Spiel gestartet!");
+            flipper.startGameFont();
             System.out.println(" 1 Coin gegen 3 Bälle getauscht.\nCoin-Zähler: " + flipper.getCoinCount());
             System.out.println("Pinball-Zähler: " + flipper.getPinBallCount());
             System.out.println("Hau den Pinball ins Spielfeld!");
             flipper.setState(flipper.getBallIsRollingFlipperState());
         } else {
-            System.out.println("Kein Credit Vorhanden, wirf bitte einen Coin rein!");
+            System.out.println("Kein Credit Vorhanden, wirf einen Coin rein oder lass den nächsten Spielen!");
             flipper.setState(flipper.getNoCreditFlipperState());
         }
     }
@@ -67,6 +70,7 @@ public class EndFlipperState implements FlipperState {
     public void end() {
         flipper.setCoinCountZero();
         flipper.setPinBallCountZero();
+        flipper.stopGameFont();
         System.out.println("Pinball-Zähler: " + flipper.getPinBallCount());
         System.out.println("Coin-Zähler: " + flipper.getCoinCount());
         System.out.println("Highscore: " + ScoreManager.getTotalScore());
