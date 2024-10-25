@@ -1,15 +1,13 @@
 package SAD.Flipper;
 
-import SAD.Flipper.FlipperDesign.*;
 import SAD.Flipper.FlipperStates.*;
+import SAD.Flipper.Printer.*;
+
 import java.util.Scanner;
 
 public class Flipper {
-    private FlipperDesign flipperFireDesign;
-    private FlipperDesign flipperHyperDesign;
-    private FlipperDesign flipperShaddownDesign;
 
-    private FlipperDesign currentFlipperDesign;
+    private Printer currentFlipperDesign;
 
     private FlipperState noCreditFlipperState;
     private FlipperState readyFlipperState;
@@ -22,12 +20,10 @@ public class Flipper {
     private int pinBallCount = 0;
     private int coinCount = 0;
 
-    public Flipper() {
-        flipperFireDesign = new FlipperFireDesign(this);
-        flipperHyperDesign = new FlipperHyperDesign(this);
-        flipperShaddownDesign = new FlipperShaddowDesign(this);
+    private static final PrinterFactory pf = new PrinterFactory();
 
-        currentFlipperDesign = flipperShaddownDesign;
+    public Flipper() {
+        currentFlipperDesign = pf.create(PrinterType.Shadow.name());
 
         noCreditFlipperState = new NoCreditFlipperState(this);
         readyFlipperState = new ReadyFlipperState(this);
@@ -39,35 +35,35 @@ public class Flipper {
     }
 
     public void startGameFont() {
-        currentFlipperDesign.startGameFont();
+        currentFlipperDesign.printStartGame();
     }
 
     public void stopGameFont() {
-        currentFlipperDesign.stopGameFont();
+        currentFlipperDesign.printStopGame();
     }
 
     public void bonusGameFont() {
-        currentFlipperDesign.bonusGameFont();
+        currentFlipperDesign.printBonusGame();
     }
 
     public void pinBallInFont() {
-        currentFlipperDesign.pinBallInFont();
+        currentFlipperDesign.printBallIn();
     }
 
     public void pinBallOutFont() {
-        currentFlipperDesign.pinBallOutFont();
+        currentFlipperDesign.printBallOut();
     }
 
     public void insertCoinFont() {
-        currentFlipperDesign.insertCoinFont();
+        currentFlipperDesign.printCoinInserted();
     }
 
     public void showAutorsFont() {
-        currentFlipperDesign.showAutorsFont();
+        currentFlipperDesign.printAuthors();
     }
 
     public void eventFont() {
-        currentFlipperDesign.eventFont();
+        currentFlipperDesign.printEvent();
     }
 
     public void insertCoin() {
@@ -98,28 +94,8 @@ public class Flipper {
         this.currentFlipperState = state;
     }
 
-    public FlipperDesign getCurrentFlipperDesign() {
-        return currentFlipperDesign;
-    }
-
-    public void setCurrentFlipperDesign(FlipperDesign currentFlipperDesign) {
-        this.currentFlipperDesign = currentFlipperDesign;
-    }
-
-    public void setFlipperDesign(FlipperDesign flipperDesign) {
+    public void setFlipperDesign(Printer flipperDesign) {
         this.currentFlipperDesign = flipperDesign;
-    }
-
-    public FlipperDesign getFlipperFireDesign() {
-        return flipperFireDesign;
-    }
-
-    public FlipperDesign getFlipperHyperDesign() {
-        return flipperHyperDesign;
-    }
-
-    public FlipperDesign getFlipperShaddowDesign() {
-        return flipperShaddownDesign;
     }
 
     public FlipperState getNoCreditFlipperState() {
@@ -186,20 +162,14 @@ public class Flipper {
         Greeting.greeting();
         String desingnInput = FlipperInput.readInput(scanner);
 
-        if (desingnInput.equalsIgnoreCase("h")) {
-            System.out.println("Du hast HYPER gewählt!");
-            flipper.setFlipperDesign(flipper.getFlipperHyperDesign());
-        }
-        else if (desingnInput.equalsIgnoreCase("f")) {
-            System.out.println("Du hast FIRE gewählt!");
-            flipper.setFlipperDesign(flipper.getFlipperFireDesign());
-        }
-        else if (desingnInput.equalsIgnoreCase("s")) {
-            System.out.println("Du hast SHADDOW gewählt!");
-            flipper.setFlipperDesign(flipper.getFlipperShaddowDesign());
-        }
-        else {
-            System.out.println("Ungültige Eingabe, SHaddow ist default!");
+        if (desingnInput.equalsIgnoreCase("w")) {
+            System.out.println("Du hast STARWARS gewählt!");
+            flipper.setFlipperDesign(pf.create(PrinterType.StarWars.name()));
+        } else if (desingnInput.equalsIgnoreCase("s")) {
+            System.out.println("Du hast SHADOW gewählt!");
+            flipper.setFlipperDesign(pf.create(PrinterType.Shadow.name()));
+        } else {
+            System.out.println("Ungültige Eingabe, Shadow ist default!");
         }
 
         System.out.println("Verwende folgende Tasten: ");
