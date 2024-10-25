@@ -1,10 +1,28 @@
 package SAD.Flipper.FlipperElements;
 
+import SAD.Flipper.FlipperMediator;
 import SAD.Flipper.ScoreManager;
 
-public class Ramp implements CommandElement {
+public class Ramp implements CommandElement, FlipperElement {
+    private FlipperMediator mediator;
     private int score = 200;
     private int rampCounter = 0;
+
+    public Ramp(FlipperMediator mediator) {
+        this.mediator = mediator;
+    }
+
+    public void rampTurn() {
+        System.out.println("Die Rampe dreht sich!");
+    }
+
+    @Override
+    public void receiveMessage(String message) {
+
+        if (message.equals("Alle Targets getroffen")) {
+            rampTurn();
+        }
+    }
 
     @Override
     public void hit() {
