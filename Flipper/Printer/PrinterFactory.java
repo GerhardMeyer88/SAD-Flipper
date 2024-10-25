@@ -3,11 +3,11 @@ package SAD.Flipper.Printer;
 public class PrinterFactory {
 
     StarWarsPrinterFactory swPF;
-    SubZeroPrinterFactory szPF;
+    ShadowPrinterFactory shPF;
 
     public PrinterFactory() {
         swPF = new StarWarsPrinterFactory();
-        szPF = new SubZeroPrinterFactory();
+        shPF = new ShadowPrinterFactory();
     }
 
     public Printer create(String type) {
@@ -15,8 +15,8 @@ public class PrinterFactory {
         switch (PrinterType.valueOf(type)) {
             case PrinterType.StarWars:
                 return swPF.create();
-            case PrinterType.SubZero:
-                return szPF.create();
+            case PrinterType.Shadow:
+                return shPF.create();
         }
 
         return swPF.create();
