@@ -3,7 +3,7 @@ package SAD.Flipper.Printer;
 public class Greeting {
 
     public static void greeting() {
-        System.out.println("\nChoose your design! Press s -> SHADOW or w -> STARWARS\n");
+        System.out.println("\nWähle dein Design! Drücke s -> SHADOW or w -> STARWARS\n");
 
         System.out.println("\n" +
                 "\n" +
