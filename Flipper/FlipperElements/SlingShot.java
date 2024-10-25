@@ -2,7 +2,7 @@ package SAD.Flipper.FlipperElements;
 
 import SAD.Flipper.ScoreManager;
 
-public class SlingShot implements CommandElement, FlipperElement {
+public class SlingShot extends FlipperElement {
     private int score = 180;
 
     @Override
@@ -14,5 +14,10 @@ public class SlingShot implements CommandElement, FlipperElement {
     @Override
     public void receiveMessage(String message) {
 
+    }
+
+    @Override
+    public void reset() {
+        // nothing to reset
     }
 }

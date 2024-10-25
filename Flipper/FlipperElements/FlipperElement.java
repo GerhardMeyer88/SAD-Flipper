@@ -1,5 +1,8 @@
 package SAD.Flipper.FlipperElements;
 
-public interface FlipperElement {
-    void receiveMessage(String message);
+import SAD.Flipper.Command.Command;
+
+public abstract class FlipperElement implements Command {
+    public abstract void receiveMessage(String message);
+    public abstract void reset();
 }

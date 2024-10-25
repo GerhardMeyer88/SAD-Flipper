@@ -1,6 +1,8 @@
-package SAD.Flipper;
+package SAD.Flipper.Mediator;
 
 import SAD.Flipper.FlipperElements.FlipperElement;
+import SAD.Flipper.Target;
+
 import java.util.ArrayList;
 import java.util.List;
 

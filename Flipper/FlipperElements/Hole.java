@@ -2,7 +2,7 @@ package SAD.Flipper.FlipperElements;
 
 import SAD.Flipper.ScoreManager;
 
-public class Hole implements CommandElement, FlipperElement {
+public class Hole extends FlipperElement {
     private int score = 150;
 
     @Override
@@ -14,5 +14,10 @@ public class Hole implements CommandElement, FlipperElement {
     @Override
     public void receiveMessage(String message) {
 
+    }
+
+    @Override
+    public void reset() {
+        // nothing to reset
     }
 }

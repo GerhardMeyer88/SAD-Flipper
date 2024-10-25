@@ -1,8 +1,9 @@
 package SAD.Flipper.FlipperElements;
 
+import SAD.Flipper.Command.Command;
 import SAD.Flipper.ScoreManager;
 
-public class BumperLeft implements CommandElement, FlipperElement {
+public class BumperLeft extends FlipperElement {
 
     @Override
     public void receiveMessage(String message) {
@@ -20,5 +21,10 @@ public class BumperLeft implements CommandElement, FlipperElement {
         }
         System.out.println("Linken Bumper getroffen: " + score + " Punkte");
         ScoreManager.addScore(score);
+    }
+
+    @Override
+    public void reset() {
+        hitTwice = false;
     }
 }

@@ -2,6 +2,7 @@ package SAD.Flipper;
 
 import SAD.Flipper.FlipperStates.*;
 import SAD.Flipper.Printer.*;
+import SAD.Flipper.visitor.ResetVisitor;
 
 import java.util.Scanner;
 

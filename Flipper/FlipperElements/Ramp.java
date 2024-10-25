@@ -1,9 +1,9 @@
 package SAD.Flipper.FlipperElements;
 
-import SAD.Flipper.FlipperMediator;
+import SAD.Flipper.Mediator.FlipperMediator;
 import SAD.Flipper.ScoreManager;
 
-public class Ramp implements CommandElement, FlipperElement {
+public class Ramp extends FlipperElement {
     private FlipperMediator mediator;
     private int score = 200;
     private int rampCounter = 0;
@@ -39,5 +39,10 @@ public class Ramp implements CommandElement, FlipperElement {
             System.out.println("Rampe getroffen: " + score + " Punkte");
             ScoreManager.addScore(score);
         }
+    }
+
+    @Override
+    public void reset() {
+        rampCounter = 0;
     }
 }

@@ -1,8 +1,10 @@
 package SAD.Flipper.FlipperStates;
 
 import SAD.Flipper.*;
-import SAD.Flipper.FlipperElements.CommandElement;
+import SAD.Flipper.Command.MacroCommand;
 import SAD.Flipper.FlipperElements.*;
+import SAD.Flipper.Mediator.FlipperMediator;
+import SAD.Flipper.visitor.ResetVisitor;
 
 import java.util.Random;
 
@@ -16,12 +18,12 @@ public class BallIsRollingFlipperState implements FlipperState {
 
     FlipperMediator mediator = new FlipperMediator();
 
-    CommandElement hitRamp = new Ramp(mediator);
-    CommandElement hitBumperRight = new BumperRight();
-    CommandElement hitBumperLeft = new BumperLeft();
-    CommandElement hitHole = new Hole();
-    CommandElement hitKicker = new Kicker();
-    CommandElement hitSlingShot = new SlingShot();
+    Ramp hitRamp = new Ramp(mediator);
+    BumperRight hitBumperRight = new BumperRight();
+    BumperLeft hitBumperLeft = new BumperLeft();
+    Hole hitHole = new Hole();
+    Kicker hitKicker = new Kicker();
+    SlingShot hitSlingShot = new SlingShot();
 
     MacroCommand macroCommand = new MacroCommand();
 
@@ -139,12 +141,20 @@ public class BallIsRollingFlipperState implements FlipperState {
     public void end() {
         flipper.setCoinCountZero();
         flipper.setPinBallCountZero();
-        flipper.startGameFont();
+        flipper.stopGameFont();
         System.out.println("Während des Spiels aufhören. Was kann wichtiger als dein Highscore sein?");
         System.out.println("Pinball-Zähler: " + flipper.getPinBallCount());
         System.out.println("Coin-Zähler: " + flipper.getCoinCount());
         System.out.println("Highscore: " + ScoreManager.getTotalScore());
         ScoreManager.resetScore();
-        System.exit(0);
+
+        ResetVisitor resetVisitor = new ResetVisitor();
+        resetVisitor.visit(hitRamp);
+        resetVisitor.visit(hitBumperLeft);
+        resetVisitor.visit(hitBumperRight);
+        resetVisitor.visit(hitKicker);
+        resetVisitor.visit(hitHole);
+        resetVisitor.visit(hitSlingShot);
+        flipper.setState(flipper.getNoCreditFlipperState());
     }
 }

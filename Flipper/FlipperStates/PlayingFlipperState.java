@@ -2,6 +2,7 @@ package SAD.Flipper.FlipperStates;
 
 import SAD.Flipper.Flipper;
 import SAD.Flipper.ScoreManager;
+import SAD.Flipper.visitor.ResetVisitor;
 
 public class PlayingFlipperState implements FlipperState {
 
@@ -69,6 +70,6 @@ public class PlayingFlipperState implements FlipperState {
         System.out.println("Highscore: " + ScoreManager.getTotalScore());
         ScoreManager.resetScore();
         System.out.println("Genug gespielt, ich gehe nach Hause.");
-        System.exit(0);
+        //System.exit(0);
     }
 }

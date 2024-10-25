@@ -1,10 +1,9 @@
 package SAD.Flipper.FlipperElements;
 
-import SAD.Flipper.Flipper;
-import SAD.Flipper.FlipperMediator;
+import SAD.Flipper.Mediator.FlipperMediator;
 import SAD.Flipper.ScoreManager;
 
-public class Kicker implements CommandElement, FlipperElement {
+public class Kicker extends FlipperElement {
     private FlipperMediator mediator;
     private int score = 70;
 
@@ -25,5 +24,10 @@ public class Kicker implements CommandElement, FlipperElement {
             loadUp();
         }
 
+    }
+
+    @Override
+    public void reset() {
+        // Nothing to reset
     }
 }
