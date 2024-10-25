@@ -1,15 +1,13 @@
 package SAD.Flipper;
 
-import SAD.Flipper.FlipperDesign.FlipperDesign;
-import SAD.Flipper.FlipperDesign.FlipperFireDesign;
-import SAD.Flipper.FlipperDesign.FlipperHyperDesign;
-import SAD.Flipper.FlipperDesign.Greeting;
+import SAD.Flipper.FlipperDesign.*;
 import SAD.Flipper.FlipperStates.*;
 import java.util.Scanner;
 
 public class Flipper {
     private FlipperDesign flipperFireDesign;
     private FlipperDesign flipperHyperDesign;
+    private FlipperDesign flipperShaddownDesign;
 
     private FlipperDesign currentFlipperDesign;
 
@@ -27,8 +25,9 @@ public class Flipper {
     public Flipper() {
         flipperFireDesign = new FlipperFireDesign(this);
         flipperHyperDesign = new FlipperHyperDesign(this);
+        flipperShaddownDesign = new FlipperShaddowDesign(this);
 
-        currentFlipperDesign = flipperFireDesign;
+        currentFlipperDesign = flipperShaddownDesign;
 
         noCreditFlipperState = new NoCreditFlipperState(this);
         readyFlipperState = new ReadyFlipperState(this);
@@ -119,6 +118,10 @@ public class Flipper {
         return flipperHyperDesign;
     }
 
+    public FlipperDesign getFlipperShaddowDesign() {
+        return flipperShaddownDesign;
+    }
+
     public FlipperState getNoCreditFlipperState() {
         return noCreditFlipperState;
     }
@@ -191,9 +194,12 @@ public class Flipper {
             System.out.println("Du hast FIRE gewählt!");
             flipper.setFlipperDesign(flipper.getFlipperFireDesign());
         }
+        else if (desingnInput.equalsIgnoreCase("s")) {
+            System.out.println("Du hast SHADDOW gewählt!");
+            flipper.setFlipperDesign(flipper.getFlipperShaddowDesign());
+        }
         else {
-            System.out.println("Ungültige Eingabe, HYPER gewählt!");
-            flipper.setFlipperDesign(flipper.getFlipperHyperDesign());
+            System.out.println("Ungültige Eingabe, SHaddow ist default!");
         }
 
         System.out.println("Verwende folgende Tasten: ");

@@ -61,7 +61,7 @@ public class BallIsRollingFlipperState implements FlipperState {
     public void flipIt() {
         Random rand = new Random();
 
-        int diceRoll = rand.nextInt(1) + 1;
+        int diceRoll = rand.nextInt(7) + 1;
         int randomNumber = rand.nextInt(3) + 1;
 
         switch (diceRoll) {
