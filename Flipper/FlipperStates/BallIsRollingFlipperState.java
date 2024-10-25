@@ -61,7 +61,8 @@ public class BallIsRollingFlipperState implements FlipperState {
     public void flipIt() {
         Random rand = new Random();
 
-        int diceRoll = rand.nextInt(6) + 1;
+        int diceRoll = rand.nextInt(7) + 1;
+        int randomNumber = rand.nextInt(3) + 1;
 
         switch (diceRoll) {
             case 1:
@@ -70,7 +71,6 @@ public class BallIsRollingFlipperState implements FlipperState {
                 break;
             case 2:
                 flipper.bonusGameFont();
-                int randomNumber = rand.nextInt(3) + 1;
                 System.out.println("Bonus Würfelspiel!");
                 System.out.println("Eine Zahl zwischen 1 und 3 wird gewürfelt, 3 Gewinnt.");
                 System.out.println("Der Würfel fällt: " + randomNumber);
