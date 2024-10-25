@@ -14,7 +14,9 @@ public class BallIsRollingFlipperState implements FlipperState {
         this.flipper = flipper;
     }
 
-    CommandElement hitRamp = new Ramp();
+    FlipperMediator mediator = new FlipperMediator();
+
+    CommandElement hitRamp = new Ramp(mediator);
     CommandElement hitBumperRight = new BumperRight();
     CommandElement hitBumperLeft = new BumperLeft();
     CommandElement hitHole = new Hole();
@@ -60,9 +62,7 @@ public class BallIsRollingFlipperState implements FlipperState {
     @Override
     public void flipIt() {
         Random rand = new Random();
-
         int diceRoll = rand.nextInt(7) + 1;
-        int randomNumber = rand.nextInt(3) + 1;
 
         switch (diceRoll) {
             case 1:
@@ -70,6 +70,7 @@ public class BallIsRollingFlipperState implements FlipperState {
                 InputEvent.letterGame();
                 break;
             case 2:
+                int randomNumber = rand.nextInt(3) + 1;
                 flipper.bonusGameFont();
                 System.out.println("Bonus Würfelspiel!");
                 System.out.println("Eine Zahl zwischen 1 und 3 wird gewürfelt, 3 Gewinnt.");

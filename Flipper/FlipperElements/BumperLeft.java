@@ -2,7 +2,13 @@ package SAD.Flipper.FlipperElements;
 
 import SAD.Flipper.ScoreManager;
 
-public class BumperLeft implements CommandElement {
+public class BumperLeft implements CommandElement, FlipperElement {
+
+    @Override
+    public void receiveMessage(String message) {
+
+    }
+
     private int score = 100;
     private boolean hitTwice = false;
 
